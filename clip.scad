@@ -28,7 +28,7 @@ translate([0, shelf_thickness, 0])
 translate([0, 0, wall_thickness])  // level with print bed
 rotate([90,0,0])                   // lie on it's back
 translate([-cable_diameter/2,0,0]) // center on x
-clip(cable_diameter, clip_depth, shelf_thickness, wall_thickness);
+clip(cable_diameter, clip_depth, shelf_thickness+0.1, wall_thickness);
 
 module squared_cylinder(r1, r2, h) {
 	cylinder(r1=r1, r2=r2, h=h);
