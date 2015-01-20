@@ -30,6 +30,12 @@ rotate([90,0,0])                   // lie on it's back
 translate([-cable_diameter/2,0,0]) // center on x
 clip(cable_diameter, clip_depth, shelf_thickness, wall_thickness);
 
+module squared_cylinder(r, h) {
+	cylinder(r=r,h=h);
+	translate([-r,0,0])
+		cube([2*r,r,h]);
+}
+
 module holder(channel_rad, gap, length) {
 	holder_rad = channel_rad + wall_thickness;
 	translate([0, -holder_rad, 0]) // set origin
