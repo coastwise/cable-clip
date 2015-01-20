@@ -30,17 +30,22 @@ rotate([90,0,0])                   // lie on it's back
 translate([-cable_diameter/2,0,0]) // center on x
 clip(cable_diameter, clip_depth, shelf_thickness, wall_thickness);
 
-// holder
-translate([0,-(cable_diameter/2+wall_thickness),0])
-difference () {
-	union () {
-		// bottom rectangle
-		translate([-(cable_diameter/2+wall_thickness),0,0]) cube([cable_diameter+wall_thickness*2, cable_diameter/2 + wall_thickness, clip_depth]);
-		// upper cylinder
-		cylinder(r=cable_diameter/2 + wall_thickness, h=clip_depth);
+module holder(channel_rad, gap, length) {
+	holder_rad = channel_rad + wall_thickness;
+	translate([0, -holder_rad, 0]) // set origin
+	difference () {
+		union () {
+			// upper cylinder
+			cylinder(r=channel_rad + wall_thickness, h=clip_depth);
+
+			// bottom rectangle
+			translate([-holder_rad,0,0]) cube([holder_rad*2, holder_rad, length]);
+		}
+		// channel
+		translate([0,0,-1]) cylinder(r=channel_rad, h=length+2);
+		// gap
+		translate([0, -(channel_rad+1), length/2]) cube([gap/2, wall_thickness+2, length+2], center=true);
 	}
-	// cable cylinder
-	translate([0,0,-1]) cylinder(r=cable_diameter/2, h=clip_depth+2);
-	// cable escape rectangle
-	translate([0,-cable_diameter/2, clip_depth/2]) cube([cable_diameter/2, wall_thickness+2, clip_depth+2], center=true);
 }
+
+holder((cable_diameter+1)/2, cable_diameter-1, clip_depth);
