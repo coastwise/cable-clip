@@ -30,10 +30,14 @@ rotate([90,0,0])                   // lie on it's back
 translate([-cable_diameter/2,0,0]) // center on x
 clip(cable_diameter, clip_depth, shelf_thickness, wall_thickness);
 
-module squared_cylinder(r, h) {
-	cylinder(r=r,h=h);
-	translate([-r,0,0])
-		cube([2*r,r,h]);
+module squared_cylinder(r1, r2, h) {
+	cylinder(r1=r1, r2=r2, h=h);
+	intersection() {
+	rotate([0,0,45]) scale([sqrt(2),sqrt(2),1])
+		cylinder(r1=r1, r2=r2, h=h, $fn=4);
+		translate([-(r1+r2),0,-1])
+			cube([(r1+r2)*2,(r1+r2)*2,h+2]);
+	}
 }
 
 module holder(channel_rad, gap, length) {
