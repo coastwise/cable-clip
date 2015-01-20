@@ -1,4 +1,4 @@
-shelf_thickness = 5/8 * 25.4; // 5/8" to mm
+shelf_thickness = 16.5;
 wall_thickness = 2;
 cable_diameter = 4;
 clip_depth = shelf_thickness;
