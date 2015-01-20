@@ -9,21 +9,26 @@ $fs=0.5; // default minimum facet size is now 0.5 mm
 // shelf
 % translate([-50,0,wall_thickness]) cube([100, shelf_thickness, 100]);
 
-// clip
-translate([-cable_diameter/2, 0, 0]){
-	// back
-	cube([cable_diameter, shelf_thickness, wall_thickness]);
+module clip(width, depth, height, tooth) {
+	// what we're clipping onto
+	% cube([width, depth, height]);
 
-	translate([0, shelf_thickness, 0]) {
-		// bottom
-		cube([cable_diameter, wall_thickness, clip_depth]);
-
-		// tooth
-		translate([cable_diameter/2, 0, clip_depth - wall_thickness/sqrt(2)])
-			rotate([45,0,0])
-			cube([cable_diameter, wall_thickness, wall_thickness], center=true);
+	difference() {
+		translate([0,-wall_thickness,-wall_thickness]) cube([width, depth+wall_thickness, height+wall_thickness]);
+		translate([-1,0,0]) cube([width+2, depth+1, height+1]);
 	}
+
+	// tooth
+	offset = tooth/sqrt(2);
+	translate([width/2,depth-offset,0]) rotate([45,0,0])
+		cube([width, tooth, tooth], center=true);
 }
+
+translate([0, shelf_thickness, 0])
+translate([0, 0, wall_thickness])  // level with print bed
+rotate([90,0,0])                   // lie on it's back
+translate([-cable_diameter/2,0,0]) // center on x
+clip(cable_diameter, clip_depth, shelf_thickness, wall_thickness);
 
 // holder
 translate([0,-(cable_diameter/2+wall_thickness),0])
