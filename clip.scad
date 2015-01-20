@@ -1,4 +1,4 @@
-shelf_thickness = 16.5;
+shelf_thickness = 17;
 wall_thickness = 2;
 cable_diameter = 4;
 clip_depth = shelf_thickness;
