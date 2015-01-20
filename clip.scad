@@ -63,9 +63,13 @@ module holder(channel_rad, gap, length) {
 		}
 		// channel
 		translate([0,0,-1]) cylinder(r=channel_rad, h=length+2);
+
 		// gap
 		translate([0, -(channel_rad+1), length/2]) cube([gap, wall_thickness+2, length+2], center=true);
 	}
 }
 
 holder(cable_diameter/2 +1, cable_diameter-0.5, clip_depth+wall_thickness);
+
+// cable
+%translate([0, -(cable_diameter/2 + 1 + wall_thickness),-clip_depth/2]) cylinder(r=cable_diameter/2, h=clip_depth*2);
