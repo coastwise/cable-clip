@@ -44,19 +44,22 @@ module holder(channel_rad, gap, length) {
 	holder_rad = channel_rad + wall_thickness;
 	translate([0, -holder_rad, 0]) // set origin
 	difference () {
-		union () {
-			intersection() {
+		intersection() {
+			union () {
+				
 				// upper cylinder
 				scale([1, 1 - wall_thickness/holder_rad/2, 1])
 				cylinder(r=channel_rad + wall_thickness, h=clip_depth);
 
-				translate([0, 0, length/2])
-				scale([1, (holder_rad*2-wall_thickness) / length, 1])
-				rotate([0, 90, 0])
-					cylinder(r=length/2, h=holder_rad*2+2, center = true);
+				// bottom rectangle
+				translate([-holder_rad,0,0]) cube([holder_rad*2, holder_rad, length]);
 			}
-			// bottom rectangle
-			translate([-holder_rad,0,0]) cube([holder_rad*2, holder_rad, length]);
+
+			translate([0, 0, length/2])
+			scale([1, (holder_rad*2-wall_thickness) / length*2, 1])
+			translate([0,holder_rad,0])
+			rotate([0, 90, 0])
+				cylinder(r=length/2, h=holder_rad*2+2, center = true);
 		}
 		// channel
 		translate([0,0,-1]) cylinder(r=channel_rad, h=length+2);
