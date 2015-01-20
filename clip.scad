@@ -49,7 +49,7 @@ module holder(channel_rad, gap, length) {
 				
 				// upper cylinder
 				scale([1, 1 - wall_thickness/holder_rad/2, 1])
-				cylinder(r=channel_rad + wall_thickness, h=clip_depth);
+				cylinder(r=channel_rad + wall_thickness, h=length);
 
 				// bottom rectangle
 				translate([-holder_rad,0,0]) cube([holder_rad*2, holder_rad, length]);
@@ -64,8 +64,8 @@ module holder(channel_rad, gap, length) {
 		// channel
 		translate([0,0,-1]) cylinder(r=channel_rad, h=length+2);
 		// gap
-		translate([0, -(channel_rad+1), length/2]) cube([gap/2, wall_thickness+2, length+2], center=true);
+		translate([0, -(channel_rad+1), length/2]) cube([gap, wall_thickness+2, length+2], center=true);
 	}
 }
 
-holder((cable_diameter+1)/2, cable_diameter-1, clip_depth);
+holder((cable_diameter+1)/2, cable_diameter-1, clip_depth+wall_thickness);
