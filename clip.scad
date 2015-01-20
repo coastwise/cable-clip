@@ -57,9 +57,9 @@ module holder(channel_rad, gap, length) {
 
 			translate([0, 0, length/2])
 			scale([1, (holder_rad*2-wall_thickness) / length*2, 1])
-			translate([0,holder_rad,0])
+			translate([-(holder_rad+1),holder_rad,0])
 			rotate([0, 90, 0])
-				cylinder(r=length/2, h=holder_rad*2+2, center = true);
+				squared_cylinder(r1=length/2, r2=length/2, h=holder_rad*2+2);
 		}
 		// channel
 		translate([0,0,-1]) cylinder(r=channel_rad, h=length+2);
