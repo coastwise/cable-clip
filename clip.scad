@@ -68,4 +68,4 @@ module holder(channel_rad, gap, length) {
 	}
 }
 
-holder(cable_diameter/2 +1, cable_diameter-1, clip_depth+wall_thickness);
+holder(cable_diameter/2 +1, cable_diameter-0.5, clip_depth+wall_thickness);
